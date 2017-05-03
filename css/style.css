@@ -1,6 +1,6 @@
 body {
-	
 	font-family: Arial, sans-serif;
+	overflow: hidden;
 }
 
 #container {
@@ -10,9 +10,13 @@ body {
     display: flex;
     flex-direction: column;
 }
+.heading {
+	text-transform: uppercase;
+}
 
 .cat {
 	width: 100%;
+	
 }
 
 #kitten-score {
