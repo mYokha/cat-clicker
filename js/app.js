@@ -7,7 +7,10 @@ var imageSource = 'http://thecatapi.com/api/images/get?format=src&type=jpg';
 $catImage.attr('src', imageSource);
 
 $imageContainer.click(function(e) {
-	$.ajax('http://thecatapi.com/api/images/get?format=src&type=jpg');
+	$.ajax({
+		url: "http://query.yahooapis.com/v1/public/yql",
+		dataType: "jsonp"
+	});
 	$catImage.attr('src', imageSource);
 	console.log('click!');
 	score++;
