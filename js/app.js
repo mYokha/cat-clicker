@@ -25,3 +25,11 @@ $catImage.click(function() {
         $loadStatus.text('Image loading failed! Click on the placeholder image to try to load an image again!');
 	});
 });
+
+$imageContainer.click(function(e) {
+	$.ajax('http://thecatapi.com/api/images/get?format=src&type=jpg');
+	$catImage.attr('src', imageSource);
+	console.log('click!');
+	score++;
+	$score.html(score);
+});
