@@ -2,46 +2,48 @@ var imagesSource = 'https://api.flickr.com/services/rest/?method=flickr.photos.s
 var urlArr = [];
 var namesArr = [];
 
-$.getJSON(imagesSource, function(data){
-        console.log(data);
+var Cat = function (scoreElem, imageElem, caption) {
+    this.score = 0;
+    this.$score = $(scoreElem);
+    this.$catImage = $(imageElem);
+    this.$petTitle = $(caption);
+    this.$catImage.attr('src', 'img/cat-placeholder.jpg');
+};
+
+function update(obj) {
+    var index = Math.round(Math.random() * 500);
+    obj.$catImage.attr('src', urlArr[index]);
+	obj.$petTitle.text(namesArr[index]);
+    obj.score++;
+    obj.$score.text(obj.score);
+}
+
+var leftCat = new Cat ('#left .score', '#left .cat', '#left .pettitle');
+
+var rightCat = new Cat ('#right .score', '#right .cat', '#right .pettitle');
+
+$.ajax({
+    url: imagesSource,
+    success: function(data){
         $.each(data.photos.photo, function(i,item){
-            src = "http://farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +".jpg";
+            src = "http://farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_q.jpg";
             urlArr.push(src);
 			namesArr.push(item.title);
-        });
-    });
-
-
-var leftCat = {
-	score: 0,
-	$score: $('#left .score'),
-	$catImage: $('#left .cat'),
-	$petTitle: $('#left .pettitle')
-};
-
-var rightCat = {
-	score: 0,
-	$score: $('#rigth .score'),
-	$catImage: $('#right .cat'),
-	$petTitle: $('#right .pettitle')
-};
-
-leftCat.$catImage.attr('src', 'img/cat-placeholder.jpg');
-
-leftCat.$catImage.click(function() {
-    var index = Math.round(Math.random() * 500);
-    leftCat.$catImage.attr('src', urlArr[index]);
-	leftCat.$petTitle.text(namesArr[index]);
-    leftCat.score++;
-    leftCat.$score.text(leftCat.score);
+        })
+        var iLeft = Math.round(Math.random() * 500);
+        var iRight = Math.round(Math.random() * 500);
+        leftCat.$catImage.attr('src', urlArr[iLeft]);
+        leftCat.$petTitle.text(namesArr[iLeft]);
+        rightCat.$catImage.attr('src', urlArr[iRight]);
+        rightCat.$petTitle.text(namesArr[iRight]);
+    }
 });
 
-rightCat.$catImage.attr('src', 'img/cat-placeholder.jpg');
+
+leftCat.$catImage.click(function() {
+    update(leftCat); 
+});
 
 rightCat.$catImage.click(function() {
-    var index = Math.round(Math.random() * 500);
-    rightCat.$catImage.attr('src', urlArr[index]);
-	rightCat.$petTitle.text(namesArr[index]);
-    rightCat.score++;
-    rightCat.$score.text(rightCat.score);
+    update(rightCat); 
 });
