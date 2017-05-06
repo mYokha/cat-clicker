@@ -1,6 +1,7 @@
 var imagesSource = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3294bf141c6a1603f3dcba8544e1d7f7&tags=kitten,adorable&tag_mode=all&per_page=500&page=1&pages=1&media=photos&format=json&nojsoncallback=1';
 var urlArr = [];
 var namesArr = [];
+var cats = [];
 
 var Cat = function (scoreElem, imageElem, caption) {
     this.score = 0;
@@ -18,9 +19,16 @@ function update(obj) {
     obj.$score.text(obj.score);
 }
 
-var leftCat = new Cat ('#left .score', '#left .cat', '#left .pettitle');
+var numberOfCatBoxes = 2;
 
-var rightCat = new Cat ('#right .score', '#right .cat', '#right .pettitle');
+var $items = $('#items');
+for (let i = 0; i < numberOfCatBoxes; i++){
+	$items.append('<div id="box'+ i +'" class="item"><p class="score-title">Score: <span class="score">0</span></p><figure><img class="cat"><figcaption class="pettitle"></figcaption></figure></div>');
+	let scoreArg = "#box" + i + " .score";
+	let catArg = "#box" + i + " .cat";
+	let catTitleArg = "#box" + i + " .pettitle";
+	cats[i] = new Cat (scoreArg, catArg, catTitleArg);
+}
 
 $.ajax({
     url: imagesSource,
@@ -29,21 +37,20 @@ $.ajax({
             src = "http://farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_q.jpg";
             urlArr.push(src);
 			namesArr.push(item.title);
-        })
-        var iLeft = Math.round(Math.random() * 500);
-        var iRight = Math.round(Math.random() * 500);
-        leftCat.$catImage.attr('src', urlArr[iLeft]);
-        leftCat.$petTitle.text(namesArr[iLeft]);
-        rightCat.$catImage.attr('src', urlArr[iRight]);
-        rightCat.$petTitle.text(namesArr[iRight]);
+        });
+		
+		var randNums = [];
+		for (let i = 0; i < numberOfCatBoxes; i++){
+			randNums[i] = Math.round(Math.random() * 500);
+			cats[i].$catImage.attr('src', urlArr[randNums[i]]);
+        	cats[i].$petTitle.text(namesArr[randNums[i]]);
+		};
     }
 });
 
-
-leftCat.$catImage.click(function() {
-    update(leftCat); 
-});
-
-rightCat.$catImage.click(function() {
-    update(rightCat); 
-});
+for (let i = 0; i < numberOfCatBoxes; i ++)
+{
+	cats[i].$catImage.click(function() {
+    	update(cats[i]);
+	});
+}
