@@ -1,11 +1,14 @@
 body {
 	font-family: Arial, sans-serif;
+	height: 100%;
+	width: 100%;
+	max-width: 960px;
+	margin: 0 auto;
 }
 
 #container {
 	width: 100%;
-	max-width: 960px;
-    height: 100vh;
+    height: 100%;
 	margin: 0 auto;
 }
 
@@ -26,7 +29,7 @@ body {
 
 .item {
 	width: 45%;
-	margin: 10px;
+	margin: 10px auto;
 }
 
 figure {
@@ -53,7 +56,13 @@ figcaption {
 		flex-direction: column;
 	}
 	.item {
-		width: 90%;
-		margin: auto;
+		width: 75%;
+	}
+	
+}
+
+@media only screen and (max-width: 320px) {
+	.item {
+		width: 100%;
 	}
 }
