@@ -21,14 +21,16 @@ body {
 .heading {
 	text-transform: uppercase;
 	text-align: center;
+	margin: 0.5em;
 }
 
 .score-title {
 	text-align: center;
+	margin: 0.5em;
 }
 
 .item {
-	width: 45%;
+	width: 50%;
 	margin: 10px auto;
 }
 
@@ -51,18 +53,18 @@ figcaption {
 	font-size: 1.5em;
 }
 
+.pettitle {
+	height: 2em;
+	line-height: 1em;
+	overflow: hidden;
+		
+}
+	
 @media only screen and (max-width: 480px) {
     #items {
 		flex-direction: column;
 	}
-	.item {
-		width: 75%;
-	}
-	
-}
-
-@media only screen and (max-width: 320px) {
-	.item {
-		width: 100%;
+	.pettitle {
+		overflow: hidden;
 	}
 }
